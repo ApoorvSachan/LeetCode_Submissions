@@ -11,20 +11,17 @@
  */
 class Solution {
 public:
-    vector<int> trav(TreeNode *r)
-    {   if(r==NULL) return {};
-        vector<int> l,ri;
-        l=trav(r->left);
-        l.push_back(r->val);
-        ri=trav(r->right);
-        l.insert(l.end(),ri.begin(),ri.end());
-        return l;
+    void trav(TreeNode *r,vector<int> &ans)
+    {   if(r==NULL) return;
+        trav(r->left,ans);
+        ans.push_back(r->val);
+        trav(r->right,ans);
     }
     vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
-        vector<int> t1=trav(root1);
-        vector<int> t2=trav(root2);
-        t1.insert(t1.end(),t2.begin(),t2.end());
-        sort(t1.begin(),t1.end());
-        return t1;
+        vector<int> ans;
+        trav(root1,ans);
+        trav(root2,ans);
+        sort(ans.begin(),ans.end());
+        return ans;
     }
 };

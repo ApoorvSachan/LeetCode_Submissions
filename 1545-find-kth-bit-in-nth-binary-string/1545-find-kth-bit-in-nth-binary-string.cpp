@@ -1,20 +1,12 @@
 class Solution {
 public:
-    void fun(int n, int i, string &s)
-    {   if(i==n+1) return ;
-        string r;
-        for(int i=s.length()-1;i>=0;i--)
-        {
-            if(s[i]=='0') r+='1';
-            else r+='0';
-        }
-        s+=('1'+r);
-        fun(n,i+1,s);
-    }
     char findKthBit(int n, int k) {
-        string s="0";
-        fun(n,2,s);
-       // cout<<s<<endl;
-        return s[k-1];
+        if(n==1) return '0';
+        int l=(1<<n)-1;
+        if(k==l/2+1) return '1';
+        if(k<l/2+1) return findKthBit(n-1,k);
+        char a=findKthBit(n-1,l-k+1);
+        if(a=='1') return '0';
+        else return '1';
     }
 };

@@ -1,21 +1,22 @@
 class Solution {
 public:
     int maximumScore(int a, int b, int c) {
-    vector<int> v={a,b,c};
+    priority_queue<int> q;
+    q.push(a); q.push(b); q.push(c);
     int ans=0;
-    while(1)
-    {   if(v[0]+v[1]==0 or v[1]+v[2]==0 or v[0]+v[2]==0)
-            break;
-        sort(v.begin(),v.end(),greater<int>());
-        if(v[2]==0)
+    while(q.top())
         {
-            ans+=v[1];
-            break;
+            int f=q.top();
+            q.pop();
+            int s=q.top();
+            q.pop();
+            if(s==0) break;
+            f--;
+            s--;
+            ans++;
+            q.push(f);
+            q.push(s);
         }
-        ans++;
-        v[2]--;
-        v[0]--;
-    }
         return ans;
     }
 };
